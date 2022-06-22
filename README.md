@@ -1,2 +1,6 @@
 # codesandbox-react-confetti-sample
-Created with CodeSandbox
+
+## Requirements
+
+- react-confetti
+- react-use

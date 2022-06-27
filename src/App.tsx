@@ -2,10 +2,28 @@ import "./styles.css";
 
 import useWindowSize from "react-use/lib/useWindowSize";
 import Confetti from "react-confetti";
+import { useState } from "react";
 
 // https://github.com/alampros/react-confetti
 
-export default function App() {
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  const countUp = () => {
+    setCount(count + 1);
+  };
+
+  return (
+    <div>
+      <p>{count}</p>
+      <button type="button" onClick={countUp}>
+        count up
+      </button>
+    </div>
+  );
+}
+
+function End() {
   // 要素の幅, 高さ
   const { width, height } = useWindowSize();
   // 重力
@@ -35,5 +53,14 @@ export default function App() {
       // initialVelocityX={initialVelocityX}
       // initialVelocityY={initialVelocityY}
     />
+  );
+}
+
+export default function App() {
+  return (
+    <div>
+      <Counter />
+      <End />
+    </div>
   );
 }

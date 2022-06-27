@@ -2,9 +2,19 @@ import "./styles.css";
 
 import useWindowSize from "react-use/lib/useWindowSize";
 import Confetti from "react-confetti";
-import { useState } from "react";
+import { createContext, useState } from "react";
 
-// https://github.com/alampros/react-confetti
+type gameWinnerContext = {
+  isWinner: boolean;
+  runConfetti: (run: boolean) => void;
+};
+
+const defaultGameWinnerContext: gameWinnerContext = {
+  isWinner: false,
+  runConfetti: () => {}
+};
+
+const gameWinner = createContext<gameWinnerContext>(defaultGameWinnerContext);
 
 function Counter() {
   const [count, setCount] = useState(0);
@@ -23,6 +33,7 @@ function Counter() {
   );
 }
 
+// https://github.com/alampros/react-confetti
 function End() {
   // 要素の幅, 高さ
   const { width, height } = useWindowSize();

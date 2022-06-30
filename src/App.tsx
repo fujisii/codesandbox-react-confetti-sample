@@ -21,6 +21,10 @@ function Counter() {
 
   const countUp = () => {
     setCount(count + 1);
+
+    if (count + 1 === 10) {
+      alert("Victory!");
+    }
   };
 
   return (
@@ -40,7 +44,7 @@ function End() {
   // 重力
   const gravity = 0.1;
   // 一度に放出される紙吹雪の数
-  const numberOfPieces = 1500;
+  const numberOfPieces = 2000;
   // 紙吹雪がスポーンする長方形。デフォルトは上部にあります。
   const confettiSource = {
     x: 0,

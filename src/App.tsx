@@ -2,40 +2,17 @@ import "./styles.css";
 
 import useWindowSize from "react-use/lib/useWindowSize";
 import Confetti from "react-confetti";
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 type gameWinnerContext = {
   isWinner: boolean;
-  runConfetti: (run: boolean) => void;
 };
 
 const defaultGameWinnerContext: gameWinnerContext = {
-  isWinner: false,
-  runConfetti: () => {}
+  isWinner: false
 };
 
 const gameWinner = createContext<gameWinnerContext>(defaultGameWinnerContext);
-
-function Counter() {
-  const [count, setCount] = useState(0);
-
-  const countUp = () => {
-    setCount(count + 1);
-
-    if (count + 1 === 10) {
-      alert("Victory!");
-    }
-  };
-
-  return (
-    <div>
-      <p>{count}</p>
-      <button type="button" onClick={countUp}>
-        count up
-      </button>
-    </div>
-  );
-}
 
 // https://github.com/alampros/react-confetti
 function End() {
@@ -71,11 +48,38 @@ function End() {
   );
 }
 
+function Counter() {
+  const [count, setCount] = useState(0);
+  const ctx = useContext(gameWinner);
+
+  const countUp = () => {
+    setCount(count + 1);
+
+    if (count + 1 === 10) {
+      ctx.isWinner = true;
+    }
+  };
+
+  let confetti;
+  if (ctx.isWinner) {
+    confetti = <End />;
+  }
+
+  return (
+    <div>
+      <p>{count}</p>
+      <button type="button" onClick={countUp}>
+        count up
+      </button>
+      {confetti}
+    </div>
+  );
+}
+
 export default function App() {
   return (
     <div>
       <Counter />
-      <End />
     </div>
   );
 }
